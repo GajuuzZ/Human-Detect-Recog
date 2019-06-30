@@ -28,5 +28,5 @@ each person you want program to recognize. (for other person you don't want put 
 
 ### Reference
 
-PCB : https://github.com/layumi/Person_reID_baseline_pytorch
-Deep SORT and YOLO : https://github.com/Qidian213/deep_sort_yolov3
+- PCB : https://github.com/layumi/Person_reID_baseline_pytorch
+- Deep SORT and YOLO : https://github.com/Qidian213/deep_sort_yolov3
