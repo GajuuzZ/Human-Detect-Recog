@@ -21,6 +21,7 @@ and put it into Model folder.
 
 3. Use *ExtractFromVid.py* to crop person image from video to Sample/ALL folder. Then make subfolder and name it for 
 each person you want program to recognize. (for other person you don't want put them into one Unknow folder)
+<br> You may need some Pedestrian video in Video folder for do a sample. </br>
 
 4. Use *MakeSampleSet.py* to make a sample set file and SVM model from all subfolder in *Sample*.
 
@@ -28,5 +29,5 @@ each person you want program to recognize. (for other person you don't want put 
 
 ### Reference
 
-PCB : https://github.com/layumi/Person_reID_baseline_pytorch
-Deep SORT and YOLO : https://github.com/Qidian213/deep_sort_yolov3
+- PCB : https://github.com/layumi/Person_reID_baseline_pytorch
+- Deep SORT and YOLO : https://github.com/Qidian213/deep_sort_yolov3
