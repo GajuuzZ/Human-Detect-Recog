@@ -17,7 +17,7 @@ from yolo import YOLO
 VID_FOLDER = './Video'
 SAVE_FOLDER = './Sample/ALL'
 
-crop_every_frame = 5
+crop_every_frame = 75
 
 if not os.path.exists(SAVE_FOLDER):
     os.makedirs(SAVE_FOLDER)

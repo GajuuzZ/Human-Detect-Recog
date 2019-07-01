@@ -15,9 +15,9 @@ from tensorflow.keras.models import load_model
 
 class YOLO(object):
     def __init__(self):
-        self.model_path = 'model/yolo.h5'
-        self.anchors_path = 'model/yolo_anchors.txt'
-        self.classes_path = 'model/coco_classes.txt'
+        self.model_path = 'Model/yolo.h5'
+        self.anchors_path = 'Model/yolo_anchors.txt'
+        self.classes_path = 'Model/coco_classes.txt'
         self.score = 0.5
         self.iou = 0.5
         self.class_names = self._get_class()

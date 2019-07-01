@@ -12,6 +12,8 @@ import os
 import numpy as np
 import pickle
 import yaml
+import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
 
 from PIL import Image
 from model import PCB, torch
@@ -21,12 +23,11 @@ from torch.autograd import Variable
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 
-
 OUTPUT_NAME = 'sample_set1'
 
 # Features extraction model file.
-CONFIG_FILE = 'model/PCB01.yaml'
-WEIGHT_FILE = 'model/PCB01.pth'
+CONFIG_FILE = 'Model/PCB01.yaml'
+WEIGHT_FILE = 'Model/PCB01.pth'
 
 # SVM parameter.
 svm = SVC(kernel='linear', C=5, probability=True)
@@ -36,12 +37,8 @@ SAMPLE_FOLDER = './Sample'
 
 
 def clusterPlot(x, y, title='', save=None):
-    import matplotlib.pyplot as plt
-    from sklearn.manifold import TSNE
-    from numpy import arange
-
-    plt.figure(figsize=[8, 6])
-    t = arange(len(set(labels))+1)
+    plt.figure()
+    t = np.arange(len(set(labels))+1)
     if x.shape[1] > 2:
         x_embedded = TSNE(n_components=2).fit_transform(x)
     else:
@@ -51,7 +48,7 @@ def clusterPlot(x, y, title='', save=None):
         plt.scatter(x_embedded[idx, 0], x_embedded[idx, 1], label=t)
 
     plt.title(title, fontsize=16)
-    plt.legend(bbox_to_anchor=(1, 1))
+    plt.legend()
     if save is not None:
         plt.savefig(save)
 
@@ -104,7 +101,7 @@ SAVE_FILE = os.path.join(SAMPLE_FOLDER, OUTPUT_NAME)
 pickle.dump((features, labels, cls_names), open(SAVE_FILE + '.pkl', 'wb'))
 
 print('Cluster Plot...')
-clusterPlot(features, labels, OUTPUT_NAME, SAVE_FILE + '.png')
+clusterPlot(np.array(features), np.array(labels), OUTPUT_NAME, SAVE_FILE + '.png')
 
 print('Train SVM...')
 lb = LabelEncoder().fit(cls_names)

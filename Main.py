@@ -51,10 +51,10 @@ def reduceFeaturesSample(ft, lb, n):
 
 
 def getColr(name):
-    if name == 'Guard':
-        color = (255, 0, 0)
-    else:
+    if name == 'Unknown':
         color = (150, 150, 150)
+    else:
+        color = (0, 0, 255)
     return color
 
 
@@ -151,15 +151,15 @@ def calculate_dest(point_list):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Human Detection Recognition Program.')
     parser.add_argument('-C', '--camera',
-                        default=0,  # Path to video or camera address.
+                        default='./Video/TownCentreXVID.avi',  # Path to video or camera address.
                         help='Camera or Video to open.')
     parser.add_argument('-R', '--resize', type=str, default='640x480',
                         help='If provided, Resize image before process. Recommend : 640x480.')
     parser.add_argument('-S', '--stealth', default=False,
                         help='Stealth mode: 0/1')
-    parser.add_argument('--SVM', default=True,
+    parser.add_argument('--SVM', default=False,
                         help='Use SVM as features recognition matchs.')
-    parser.add_argument('--save_vid_name', type=str, default='Test.mp4')
+    parser.add_argument('--save_vid_name', type=str, default='')
     parser.add_argument('--draw_result', default=True)
     parser.add_argument('--roi', type=str, default=None,
                         help='Region of interest file. If not exist will select one.')
@@ -305,8 +305,8 @@ if __name__ == '__main__':
                         track.confident = np.mean(track.conf)
 
                     # Set Alarm.
+                    tpass = False  # Trespassing into area.
                     if args.roi is not None:
-                        tpass = False  # Trespassing into area.
                         # Use IOU to set alarm.
                         if track.clss != 'Guard':
                             iou = iou_poly(bb2poly(track.dest_bbx), roi)
@@ -356,7 +356,8 @@ if __name__ == '__main__':
 
                 # Display video.
                 if not args.stealth:
-                    cv2.drawContours(frame, np.array([roi]), 0, (0, 255, 0))
+                    if args.roi is not None:
+                        cv2.drawContours(frame, np.array([roi]), 0, (0, 255, 0))
                     cv2.imshow('frame', frame)
 
                 # Write output video file.
